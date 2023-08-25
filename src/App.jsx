@@ -3,7 +3,7 @@ import Form from "./components/Form";
 
 function App() {
   return (
-    <div className="">
+    <div className=" container mt-5">
       <Form />
     </div>
   );
