@@ -27,6 +27,19 @@ const Form = () => {
       precio: precio,
       imagen: urlImgDesc,
     };
+    //2.- Guardar la informacion en la base de datos Firestore
+    try {
+      await addDoc(collection(db, "comidas"), {
+        newComida
+      }); 
+    } catch (error) {
+      console.log(error);
+    }
+
+    //3.- limpiar o resetear los campos del formulario 
+    e.target.nombre.value = '';
+    e.target.precio.value = '';
+    e.target.file.value = '';
   };
   //3.- guardar la informacion en la base de datos Storage
 
@@ -39,13 +52,13 @@ const Form = () => {
     await uploadBytes(refArchivo, archivoImg);
 
     //obtener la url del archivo
-    const urlImgDesc = await getDownloadURL(refArchivo); //con esta url obtengo la imagen y sirve para la base de datos de firestore
+    urlImgDesc = await getDownloadURL(refArchivo); //con esta url obtengo la imagen y sirve para la base de datos de firestore
   };
 
   return (
     <div className="card card-body">
       {/* titulo */}
-      <h3 className="tesxt-center">Agregar Comida</h3>
+      <h3 className="text-center">Agregar Comida</h3>
 
       {/* formulario */}
       <form onSubmit={guardarInfo}>
